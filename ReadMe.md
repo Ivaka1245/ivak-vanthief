@@ -1,6 +1,7 @@
 # Ivak-VanHeist
 Description:
-Hack the system and find out where the tub is. You go and steal a van
+Hack the system and find out where the tub is. 
+You go and steal a van.
 
 Dependencies:
 - [dpemotes](https://github.com/andristum/dpemotes) 
