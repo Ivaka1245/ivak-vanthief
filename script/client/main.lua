@@ -91,7 +91,7 @@ CreateThread(function()
                                 TaskLeaveVehicle(ped, vehicle, 1)
                                 Wait(3000)
                                 TriggerServerEvent('ivak-vanthief:KUsRmWpBKDuFb7NnmbCQ')
-                                DeleteEntity(vehicle)
+                                ESX.Game.DeleteVehicle(vehicle)
                                 havevan = false
                                 RemoveBlip(dyblip[1])
                                 table.remove(dyblip)
