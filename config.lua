@@ -1,10 +1,21 @@
 Config = {}
-Config.Van = 'speedo'
 Config.MinPolice = 1
-Config.Reward = math.random(5000, 10000)
-Config.UseBlackMoney = true
 Config.GuardsWeapon = 'WEAPON_MICROSMG'
 Config.TimeForNewRob = 300000 -- in milisec
+
+--Money Reward
+Config.UseMoney = true -- !!! if you make it false it will not give you anything !!!
+Config.GiveBlackMoney = true 
+Config.Reward = math.random(5000, 10000)
+
+-- Item Reward
+Config.UseItem = false
+Config.ItemAmount = math.random(1, 5)
+Config.Items = {
+    "gold",
+    "goldwatch",
+    "jewelry"
+}
 
 Config.Guards = {
     Loc1 = { 
@@ -14,22 +25,22 @@ Config.Guards = {
     },
 
     Loc2 = { 
-	    {model = 's_m_y_blackops_01', coords = {1381.45, -736.45, 66.23, 92.79}},
-	    {model = 's_m_y_blackops_01', coords = {1380.00, -747.57, 66.23, 63.27}},
-	    {model = 's_m_y_blackops_01', coords = {1385.95, -745.02, 66.23, 81.26}}
+	    {model = 's_m_y_blackops_01', coords = {1381.45, -736.45, 67.23, 92.79}},
+	    {model = 's_m_y_blackops_01', coords = {1380.00, -747.57, 67.23, 63.27}},
+	    {model = 's_m_y_blackops_01', coords = {1385.95, -745.02, 67.23, 81.26}}
     },
 
     Loc3 = { 
-	    {model = 's_m_y_blackops_01', coords = {285.31, -3148.05, 4.82, 17.21}},
-	    {model = 's_m_y_blackops_01', coords = {274.30, -3148.71, 4.82, 340.46}},
-	    {model = 's_m_y_blackops_01', coords = {280.65, -3154.86, 4.82, 4.94}}
+	    {model = 's_m_y_blackops_01', coords = {285.31, -3148.05, 5.82, 17.21}},
+	    {model = 's_m_y_blackops_01', coords = {274.30, -3148.71, 5.82, 340.46}},
+	    {model = 's_m_y_blackops_01', coords = {280.65, -3154.86, 5.82, 4.94}}
     }
 } 
 
 Config.Locations = {
-    {pos = vector3(-201.50, -1724.24, 31.65), heading = 114.79, guards = Config.Guards.Loc1},
-    {pos = vector3(1380.83, -739.78, 66.23), heading = 88.03, guards = Config.Guards.Loc2},
-    {pos = vector3(279.99, -3147.22, 4.79), heading = 9.49, guards = Config.Guards.Loc3}
+    {vanmodel = 'speedo', pos = vector3(-201.50, -1724.24, 31.65), heading = 114.79, guards = Config.Guards.Loc1},
+    {vanmodel = 'rumpo2', pos = vector3(1380.83, -739.78, 66.23), heading = 88.03, guards = Config.Guards.Loc2},
+    {vanmodel = 'burrito2', pos = vector3(279.99, -3147.22, 4.79), heading = 9.49, guards = Config.Guards.Loc3}
 }
 
 Config.Locale = {
@@ -49,4 +60,6 @@ Config.Locale = {
     ['maked_money'] = "You make ",
     ['black_money'] = "$ black money",
     ['cash'] = "$",
+    ['get_item'] = "You get it ",
+    ['item_count'] = "x ",
 }

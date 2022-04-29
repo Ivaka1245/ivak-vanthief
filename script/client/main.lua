@@ -4,8 +4,9 @@ local lockpickvan = false
 local inmision = false
 local havevan = false 
 local robbed = false 
-local vanb = {}
 local dyblip = {}
+local vanb = {}
+local vansb = {}
 local van
 
 -- Cores
@@ -79,7 +80,7 @@ CreateThread(function()
         if dist4 <= 7.0 then
             if IsPedInAnyVehicle(ped) and havevan == true then
                 local vehicleModel = GetEntityModel(GetVehiclePedIsIn(ped))
-                if vehicleModel == GetHashKey(Config.Van) then
+                if vehicleModel == GetHashKey(vansb[1]) then
                     sleep = 0
                     Marker(-116.36, -59.71, 55.42,true)
                     if dist4 <= 1.5 then
@@ -95,6 +96,7 @@ CreateThread(function()
                                 havevan = false
                                 RemoveBlip(dyblip[1])
                                 table.remove(dyblip)
+                                table.remove(vansb)
                             end
                         end
                     end
@@ -190,7 +192,7 @@ AddEventHandler('ivak-vanthief:KwPlSZkI2vrqqPDi1Pd4', function(coords)
     SetBlipAsShortRange(policeblip, true)
 
     while alpha ~= 0 do
-        Citizen.Wait(150)
+        Wait(170)
         alpha = alpha - 1
         SetBlipAlpha(policeblip, alpha)
 
@@ -204,19 +206,20 @@ end)
 -- Functions
 function SpawnVan()
     local random = math.random(1, #Config.Locations)
-    local vancoords = Config.Locations[random]
-    RequestModel(GetHashKey(Config.Van))
-    while not HasModelLoaded(GetHashKey(Config.Van)) do
-        Citizen.Wait(10)
+    local vans = Config.Locations[random]
+    local vmodel = vans.vanmodel
+    RequestModel(GetHashKey(vmodel))
+    while not HasModelLoaded(GetHashKey(vmodel)) do
+        Wait(10)
     end
-    van = CreateVehicle(GetHashKey(Config.Van), vector3(vancoords.pos.x, vancoords.pos.y, vancoords.pos.z), vancoords.heading, true, false)
+    van = CreateVehicle(GetHashKey(vmodel), vector3(vans.pos.x, vans.pos.y, vans.pos.z), vans.heading, true, false)
     SetVehicleDoorsLocked(van, 2)
-    for i = 1, #vancoords.guards do
-        RequestModel(GetHashKey(vancoords.guards[i].model))
-        while not HasModelLoaded(GetHashKey(vancoords.guards[i].model)) do
-            Citizen.Wait(10)
+    for i = 1, #vans.guards do
+        RequestModel(GetHashKey(vans.guards[i].model))
+        while not HasModelLoaded(GetHashKey(vans.guards[i].model)) do
+            Wait(10)
         end
-		npc = CreatePed(4,GetHashKey(vancoords.guards[i].model), vancoords.guards[i].coords[1], vancoords.guards[i].coords[2], vancoords.guards[i].coords[3], vancoords.guards[i].coords[4], true, true)
+		npc = CreatePed(4,GetHashKey(vans.guards[i].model), vans.guards[i].coords[1], vans.guards[i].coords[2], vans.guards[i].coords[3], vans.guards[i].coords[4], true, true)
 		SetPedCanSwitchWeapon(npc, true)
 		SetPedAccuracy(npc, math.random(10,30))
 		SetEntityInvincible(npc, false)
@@ -229,11 +232,11 @@ function SpawnVan()
 		SetRelationshipBetweenGroups(0, GetHashKey("Guards"), GetHashKey("Guards"))
 		SetRelationshipBetweenGroups(5, GetHashKey("Guards"), GetHashKey("PLAYER"))
 		SetRelationshipBetweenGroups(5, GetHashKey("PLAYER"), GetHashKey("Guards"))
-		SetModelAsNoLongerNeeded(GetHashKey(GetHashKey(vancoords.guards[i].model)))
+		SetModelAsNoLongerNeeded(GetHashKey(GetHashKey(vans.guards[i].model)))
 	end
     lockpickvan = true
     havevan = true
-    vanblip = AddBlipForCoord(vector3(vancoords.pos.x, vancoords.pos.y, vancoords.pos.z))
+    vanblip = AddBlipForCoord(vector3(vans.pos.x, vans.pos.y, vans.pos.z))
     SetBlipColour(vanblip, 1)
     SetBlipRoute(vanblip, true)
     SetBlipRouteColour(vanblip, 1)
@@ -241,6 +244,7 @@ function SpawnVan()
     AddTextComponentString(Config.Locale['van_blip'])
     EndTextCommandSetBlipName(vanblip)
     table.insert(vanb, vanblip)
+    table.insert(vansb, vmodel)
 end
 
 function hack(success, timeremaining)
