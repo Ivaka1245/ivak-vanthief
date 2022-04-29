@@ -17,6 +17,10 @@ Config.Items = {
     "jewelry"
 }
 
+Config.StartLocations = {
+    vector3(-112.56, -67.98, 42.89)
+}
+
 Config.Guards = {
     Loc1 = { 
 	    {model = 's_m_y_blackops_01', coords = {-200.77, -1721.44, 32.66, 115.03}},

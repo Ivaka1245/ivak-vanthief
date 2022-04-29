@@ -53,28 +53,30 @@ CreateThread(function()
             end
         end 
 
-        local dist3 = GetDistanceBetweenCoords(pcoords, vector3(-112.56, -67.98, 42.89), true)
-        if dist3 <= 3.0 then
-            sleep = 0
-            Marker(-112.56, -67.98, 42.89)
-            if dist3 <= 1.5 then
-                if working == false then
-                    HelpText(Config.Locale['get_info'])
-                
-                    if IsControlJustPressed(0, 38) then
-                        if inmision == false then
-                            if robbed == true then
-                                Notify(Config.Locale['robbed'])
+		for i=1, #Config.StartLocations, 1 do
+            local dist3 = GetDistanceBetweenCoords(pcoords, Config.StartLocations[i].x, Config.StartLocations[i].y, Config.StartLocations[i].z, true)
+            if dist3 <= 3.0 then
+                sleep = 0
+                Marker(Config.StartLocations[i].x, Config.StartLocations[i].y, Config.StartLocations[i].z)
+                if dist3 <= 1.5 then
+                    if working == false then
+                        HelpText(Config.Locale['get_info'])
+                    
+                        if IsControlJustPressed(0, 38) then
+                            if inmision == false then
+                                if robbed == true then
+                                    Notify(Config.Locale['robbed'])
+                                else
+                                    TriggerServerEvent('ivak-vanthief:AkR53PsKWETU98pDUMah')
+                                end
                             else
-                                TriggerServerEvent('ivak-vanthief:AkR53PsKWETU98pDUMah')
+                                Notify(Config.Locale['try'])
                             end
-                        else
-                            Notify(Config.Locale['try'])
                         end
                     end
                 end
-            end
-        end 
+            end 
+        end
 
         local dist4 = GetDistanceBetweenCoords(pcoords, vector3(-116.36, -59.71, 55.42), true)
         if dist4 <= 7.0 then
