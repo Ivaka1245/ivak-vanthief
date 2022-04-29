@@ -51,7 +51,7 @@ AddEventHandler('ivak-vanthief:KUsRmWpBKDuFb7NnmbCQ', function()
 	local xPlayer = ESX.GetPlayerFromId(src)
     if Config.UseMoney == true then 
         local money = Config.Reward
-        if Config.UseBlackMoney == true then 
+        if Config.GiveBlackMoney == true then 
             xPlayer.addAccountMoney('black_money', money)
             TriggerClientEvent('ivak-vanthief:notify', src, Config.Locale['maked_money']..money..Config.Locale['black_money'])
         else
@@ -66,6 +66,6 @@ AddEventHandler('ivak-vanthief:KUsRmWpBKDuFb7NnmbCQ', function()
         xPlayer.addInventoryItem(item, Config.ItemAmount)
         TriggerClientEvent('ivak-vanthief:notify', src, Config.Locale['get_item']..Config.ItemAmount..Config.Locale['item_count']..items.label)
     end
-    
+
     TriggerClientEvent('ivak-vanthief:rnKxIFXMYTeaf9YuAevL', -1)
 end)
