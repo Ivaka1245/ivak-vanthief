@@ -5,7 +5,7 @@ Config.Reward = math.random(5000, 10000)
 Config.UseBlackMoney = true
 Config.GuardsWeapon = 'WEAPON_MICROSMG'
 Config.TimeForNewRob = 300000 -- in milisec
-
+Config.Delivery = vector3(-116.36, -59.71, 55.42)
 Config.Guards = {
     Loc1 = { 
 	    {model = 's_m_y_blackops_01', coords = {-200.77, -1721.44, 32.66, 115.03}},
