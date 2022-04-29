@@ -45,17 +45,37 @@ AddEventHandler('ivak-vanthief:8mwlGHX0z3CU6oeLNRKx', function()
     TriggerClientEvent('ivak-vanthief:gtoP7JGjzoYFN8DPWXln', -1)
 end)
 
+
+
+local paid = {}
 RegisterServerEvent('ivak-vanthief:KUsRmWpBKDuFb7NnmbCQ')
 AddEventHandler('ivak-vanthief:KUsRmWpBKDuFb7NnmbCQ', function()
     local src = source
 	local xPlayer = ESX.GetPlayerFromId(src)
     local money = Config.Reward
-    if Config.UseBlackMoney == true then 
-        xPlayer.addAccountMoney('black_money', money)
-        TriggerClientEvent('ivak-vanthief:notify', src, Config.Locale['maked_money']..money..Config.Locale['black_money'])
+    local difference = #(GetEntityCoords(GetPlayerPed(xPlayer.source)) -  Config.Delivery) -- Must be the same as Client-Side line 78
+    if difference <= 20 then
+        if not paid[src] then
+           
+            if Config.UseBlackMoney == true then 
+                xPlayer.addAccountMoney('black_money', money)
+                TriggerClientEvent('ivak-vanthief:notify', src, Config.Locale['maked_money']..money..Config.Locale['black_money'])
+            else
+                xPlayer.addMoney(money)
+                TriggerClientEvent('ivak-vanthief:notify', src, Config.Locale['maked_money']..money..Config.Locale['cash'])
+            end
+
+            TriggerClientEvent('ivak-vanthief:rnKxIFXMYTeaf9YuAevL', -1)
+            paid[src] = ESX.SetTimeout(Config.TimeForNewRob, function()
+                paid[src] = nil
+            end)
+
+        else
+            --Add some ban event or just drop it
+        end
     else
-        xPlayer.addMoney(money)
-        TriggerClientEvent('ivak-vanthief:notify', src, Config.Locale['maked_money']..money..Config.Locale['cash'])
+        --Add some ban event or just drop it
     end
-    TriggerClientEvent('ivak-vanthief:rnKxIFXMYTeaf9YuAevL', -1)
 end)
+
+

@@ -75,7 +75,7 @@ CreateThread(function()
             end
         end 
 
-        local dist4 = GetDistanceBetweenCoords(pcoords, vector3(-116.36, -59.71, 55.42), true)
+        local dist4 = GetDistanceBetweenCoords(pcoords, Config.Delivery, true)
         if dist4 <= 7.0 then
             if IsPedInAnyVehicle(ped) and havevan == true then
                 local vehicleModel = GetEntityModel(GetVehiclePedIsIn(ped))
